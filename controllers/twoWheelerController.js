@@ -1,5 +1,5 @@
 const TwoWheeler = require("../models/twoWheelerModel")
-
+const mongoose = require("mongoose");
 
 //create new vehicle detail
 exports.createTwoWheeler = async (req, res) => {
@@ -57,7 +57,12 @@ exports.createTwoWheeler = async (req, res) => {
 //update vehicle detail find by id
 exports.updateTwoWheeler = async (req, res) => {
   try {
-    const id = req.params.id;
+    const { id } = req.params;
+
+    // ✅ Validate ID
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid vehicle ID ❌" });
+    }
 
     // ❌ Reject empty body
     if (!req.body || Object.keys(req.body).length === 0) {
@@ -112,9 +117,12 @@ exports.updateTwoWheeler = async (req, res) => {
 //get vehicle detail by id 
 exports.getTwoWheelerById = async (req, res) => {
   try {
-    const id = req.params.id;
+    const { id } = req.params;
 
-    const vehicle = await TwoWheeler.findById(id);
+    // ✅ Validate ID
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid vehicle ID ❌" });
+    }
 
     if (!vehicle)
       return res.status(404).json({ message: "Vehicle not found ❌" });
@@ -143,7 +151,12 @@ exports.getAllTwoWheelers = async (req, res) => {
 //delete vehicle detail by id
 exports.deleteTwoWheeler = async (req, res) => {
   try {
-    const id = req.params.id;
+    const { id } = req.params;
+
+    // ✅ Validate ID
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid vehicle ID ❌" });
+    }
 
     const vehicle = await TwoWheeler.findByIdAndDelete(id);
 

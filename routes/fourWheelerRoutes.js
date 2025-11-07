@@ -2,28 +2,28 @@ const express = require("express")
 const router = express.Router();
 
 const upload = require("../middleware/upload");
-
 const {
-  createFourWheeler,
-  updateFourWheeler,
-  getAllFourWheelers,
-  getFourWheelerById,
-  deleteFourWheeler
+    createFourWheeler,
+    updateFourWheeler,
+    getAllFourWheelers,
+    getFourWheelerById,
+    deleteFourWheeler
+
 } = require("../controllers/fourWheelerController");
 
-// Create
+//create route
 router.post("/createfourwheeler", upload.array("vehicleImage", 5), createFourWheeler);
 
-// Update
+//update
 router.put("/updatefourwheeler/:id", upload.array("vehicleImage", 5), updateFourWheeler);
 
-// Get by ID
-router.get("/getfourwheelerdetail/:id", getFourWheelerById);
+//get by id
+router.get("/getfourwheelerdetail/:id",getFourWheelerById);
 
-// Get All
+//get all
 router.get("/getfourwheeler", getAllFourWheelers);
 
-// Delete
+//delete
 router.delete("/deletefourwheeler/:id", deleteFourWheeler);
 
 module.exports = router;

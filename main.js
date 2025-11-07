@@ -10,6 +10,8 @@ app.use("/uploads", express.static("uploads")); // serve image files
 const authRoutes = require("./routes/authRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const twoWheelerRoutes = require("./routes/twoWheelerRoutes");
+const fourWheelerRoutes= require("./routes/fourWheelerRoutes")
+const propertyRoutes= require("./routes/propertyRoutes")
 
 // connect DB
 connectDB();
@@ -19,6 +21,8 @@ connectDB();
 app.use("/auth", authRoutes);
 app.use("/admin", adminRoutes);
 app.use("/two-wheeler", twoWheelerRoutes);
+app.use("/four-wheeler", fourWheelerRoutes);
+app.use("/property", propertyRoutes)
 
 app.get("/", (req, res) => {
   res.send("Server running ✅");
