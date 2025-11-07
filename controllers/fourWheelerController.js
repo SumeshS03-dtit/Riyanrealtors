@@ -48,7 +48,7 @@ exports.createFourWheeler = async (req, res) => {
 
     // ✅ Save multiple uploaded images
     if (req.files && req.files.length > 0) {
-      data.vehicleImage = req.files.map((file) => file.filename);
+      data.vehicleImage = req.files.map((file) => `/uploads/${file.filename}`);
     }
 
     const vehicle = await FourWheeler.create(data);
@@ -92,9 +92,11 @@ exports.updateFourWheeler = async (req, res) => {
     if (data.mileagePerLiter) data.mileagePerLiter = Number(data.mileagePerLiter);
     if (data.seatCapacity) data.seatCapacity = Number(data.seatCapacity);
 
-    // ✅ Save multiple uploaded images
+    // ✅ Update image ONLY if new images were uploaded
     if (req.files && req.files.length > 0) {
-      data.vehicleImage = req.files.map((file) => file.filename);
+      data.vehicleImage = req.files.map((file) => `/uploads/${file.filename}`);
+    } else {
+      delete data.vehicleImage;   // ✅ prevents replacing old images with undefined
     }
 
     // ✅ Update & return new document  

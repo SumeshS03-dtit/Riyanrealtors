@@ -41,7 +41,7 @@ exports.createTwoWheeler = async (req, res) => {
 
     // ✅ Save multiple image filenames
     if (req.files && req.files.length > 0) {
-      data.vehicleImage = req.files.map((file) => file.filename);
+      data.vehicleImage = req.files.map((file) => `/uploads/${file.filename}`);
     }
 
     const vehicle = await TwoWheeler.create(data);
@@ -87,9 +87,11 @@ exports.updateTwoWheeler = async (req, res) => {
     if (data.purchaseYear) data.purchaseYear = Number(data.purchaseYear);
     if (data.mileagePerLiter) data.mileagePerLiter = Number(data.mileagePerLiter);
 
-    // ✅ Save multiple uploaded images if present
+    // ✅ Update image ONLY if new images were uploaded
     if (req.files && req.files.length > 0) {
-      data.vehicleImage = req.files.map((file) => file.filename);
+      data.vehicleImage = req.files.map((file) => `/uploads/${file.filename}`);
+    } else {
+      delete data.vehicleImage;   // ✅ prevents replacing old images with undefined
     }
 
     // ✅ Update only provided fields

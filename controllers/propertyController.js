@@ -49,7 +49,7 @@ exports.createProperty = async (req, res) => {
 
     // ✅ Save multiple uploaded images
     if (req.files && req.files.length > 0) {
-      data.propertyImages = req.files.map((file) => file.filename);
+      data.propertyImages = req.files.map((file) => `/uploads/${file.filename}`);
     }
 
     const property = await Property.create(data);
@@ -91,9 +91,11 @@ exports.updateProperty = async (req, res) => {
     if (data.sqFeet) data.sqFeet = Number(data.sqFeet);
     if (data.buildYear) data.buildYear = Number(data.buildYear);
 
-    // ✅ Save uploaded images if provided
+    // ✅ Update image ONLY if new images were uploaded
     if (req.files && req.files.length > 0) {
-      data.propertyImages = req.files.map((file) => file.filename);
+      data.propertyImages = req.files.map((file) => `/uploads/${file.filename}`);
+    } else {
+      delete data.propertyImages;   // ✅ prevents replacing old images with undefined
     }
 
     // ✅ Update the property
