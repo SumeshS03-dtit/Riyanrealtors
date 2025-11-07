@@ -4,26 +4,27 @@ const router = express.Router();
 const upload = require("../middleware/upload");
 
 const {
-  createFourWheeler,
-  updateFourWheeler,
-  getAllFourWheelers,
-  getFourWheelerById,
-  deleteFourWheeler
-} = require("../controllers/fourWheelerController");
+  deleteTwoWheeler,
+  getAllTwoWheelers,
+  getTwoWheelerById,
+  updateTwoWheeler,
+  createTwoWheeler
+ 
+} = require("../controllers/twoWheelerController");
 
 // Create
-router.post("/createfourwheeler", upload.array("vehicleImage", 5), createFourWheeler);
+router.post("/createtwowheeler", upload.array("vehicleImage", 5), createTwoWheeler);
 
 // Update
-router.put("/updatefourwheeler/:id", upload.array("vehicleImage", 5), updateFourWheeler);
+router.put("/updatetwowheeler/:id", upload.array("vehicleImage", 5), updateTwoWheeler);
 
 // Get by ID
-router.get("/getfourwheelerdetail/:id", getFourWheelerById);
+router.get("/gettwowheelerdetail/:id", getTwoWheelerById);
 
 // Get All
-router.get("/getfourwheeler", getAllFourWheelers);
+router.get("/gettwowheeler", getAllTwoWheelers);
 
 // Delete
-router.delete("/deletefourwheeler/:id", deleteFourWheeler);
+router.delete("/deletetwowheeler/:id", deleteTwoWheeler);
 
 module.exports = router;
